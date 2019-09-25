@@ -5,7 +5,6 @@ using UnityEngine;
 public class Gazer : MonoBehaviour
 {
     bool goingDown = true; //0 = Down, 1 = Up
-    Vector2 currentMovement;
     float speed = 5f;
 
     void Update()
@@ -15,12 +14,12 @@ public class Gazer : MonoBehaviour
 
     void UpdateState()
     {
-        currentMovement = transform.position;
+        Vector2 vec = new Vector2(0,0);
         if (goingDown)
         {
             if (transform.position.y > -3)
             {
-                currentMovement.y -= speed * Time.deltaTime;
+                vec.y -= speed * Time.deltaTime;
             }
             else
             {
@@ -31,13 +30,13 @@ public class Gazer : MonoBehaviour
         {
             if (transform.position.y < 3)
             {
-                currentMovement.y += speed * Time.deltaTime;
+                vec.y += speed * Time.deltaTime;
             }
             else
             {
                 goingDown = true;
             }
         }
-        transform.position = currentMovement;
+        transform.Translate(vec);
     }
 }

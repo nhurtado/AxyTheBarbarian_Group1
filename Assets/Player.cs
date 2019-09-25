@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float speed = 20f;
+    float speed = 10f;
     Vector2 currentMovement;
     void FixedUpdate()
     {
         ProcessInput();
-    }
-
-    void Update()
-    {
         UpdateState();
     }
 
     void ProcessInput()
     {
-        currentMovement = transform.position;
+        currentMovement = new Vector2(0,0);
         if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow))
         {
             currentMovement.y += speed * Time.deltaTime;
@@ -39,6 +35,6 @@ public class Player : MonoBehaviour
 
     void UpdateState()
     {
-        transform.position = currentMovement;
+        transform.Translate(currentMovement);
     }
 }
