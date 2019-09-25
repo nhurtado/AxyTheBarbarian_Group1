@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float speed = 30f;
+    float speed = 20f;
     Vector2 currentMovement;
     void FixedUpdate()
     {
         ProcessInput();
+    }
+
+    void Update()
+    {
         UpdateState();
     }
 
