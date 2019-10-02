@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Gazer : MonoBehaviour
 {
+    readonly float speed = 5f;
     bool goingDown = true; //0 = Down, 1 = Up
-    float speed = 5f;
+
 
     void Update()
     {

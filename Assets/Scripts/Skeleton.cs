@@ -8,9 +8,9 @@ public class Skeleton : MonoBehaviour
     public GameObject arrowPrefab;
     GameObject lastArrow;
     GameObject currentArrow;
+    readonly float fireRate = 0.5f;
     float xPosition;
     float yPosition;
-    float fireRate = 0.5f;
     float lastFire = 0;
     void Start()
     {
@@ -25,13 +25,30 @@ public class Skeleton : MonoBehaviour
 
     void ShootArrow()
     {
-        float currentTime = Time.time;
+        /* Old Way
+        float currentTime = Time.deltaTime;
         if (lastFire + fireRate < currentTime)
         {
             currentArrow = Instantiate(arrowPrefab,
                 new Vector2(xPosition + Random.Range(-3.0f, 3.0f),
                 yPosition + Random.Range(-3.0f, 3.0f)),
                 transform.rotation);
+            if (lastArrow)
+            {
+                Destroy(lastArrow);
+            }
+            lastArrow = currentArrow;
+            lastFire = currentTime;
+        }*/
+        float angle = Random.value * 360;
+        float currentTime = Time.deltaTime;
+        float radius = 3.0f;
+        float arrowXPosition = xPosition + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
+        float arrowYPoisition = yPosition + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
+        if (lastFire + fireRate < currentTime)
+        {
+            currentArrow = Instantiate(arrowPrefab,
+                new Vector2(arrowXPosition, arrowYPoisition), transform.rotation);
             if (lastArrow)
             {
                 Destroy(lastArrow);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float speed = 10f;
+    readonly float speed = 10f;
     Vector2 currentMovement;
     void FixedUpdate()
     {
