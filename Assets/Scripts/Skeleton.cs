@@ -25,30 +25,16 @@ public class Skeleton : MonoBehaviour
 
     void ShootArrow()
     {
-        /* Old Way
-        float currentTime = Time.deltaTime;
+        float currentTime = Time.time;
+        float a = Random.Range(0.0f, 1.0f) * 2 * (float) 3.14;
+        double r = 3 * Mathf.Sqrt(Random.Range(0.0f, 1.0f));
+        float arrowXPosition = xPosition + (float) r * Mathf.Cos(a);
+        float arrowYPoisition = yPosition + (float) r * Mathf.Sin(a);
         if (lastFire + fireRate < currentTime)
         {
             currentArrow = Instantiate(arrowPrefab,
-                new Vector2(xPosition + Random.Range(-3.0f, 3.0f),
-                yPosition + Random.Range(-3.0f, 3.0f)),
+                new Vector2(arrowXPosition, arrowYPoisition),
                 transform.rotation);
-            if (lastArrow)
-            {
-                Destroy(lastArrow);
-            }
-            lastArrow = currentArrow;
-            lastFire = currentTime;
-        }*/
-        float angle = Random.value * 360;
-        float currentTime = Time.deltaTime;
-        float radius = 3.0f;
-        float arrowXPosition = xPosition + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
-        float arrowYPoisition = yPosition + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
-        if (lastFire + fireRate < currentTime)
-        {
-            currentArrow = Instantiate(arrowPrefab,
-                new Vector2(arrowXPosition, arrowYPoisition), transform.rotation);
             if (lastArrow)
             {
                 Destroy(lastArrow);
