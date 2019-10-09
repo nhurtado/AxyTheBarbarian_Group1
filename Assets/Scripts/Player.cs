@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private PhysicsController physicsCon;
     private StateController stateCon;
     public int currentDirection;
+    public bool canMove = true;
 
     public Player(InputController inputCon, PhysicsController physicsCon, StateController stateCon)
     {

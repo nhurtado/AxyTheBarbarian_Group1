@@ -5,8 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class StateController : MonoBehaviour
 {
+    public GameObject winScreen;
+    public GameObject gameOverScreen;
     private Player player;
+    float endTime = float.MaxValue;
     private Vector2 currentMovement;
+    private bool restartLevel = false;
     void Start()
     {
         player = GetComponent<Player>();
@@ -16,22 +20,42 @@ public class StateController : MonoBehaviour
     {
         currentMovement = player.currentMovement;
         UpdateState(player);
+        checkEndCondition();
     }
 
     void UpdateState(Player player)
     {
-        player.transform.Translate(currentMovement);
+        if (player.canMove)
+        {
+            player.transform.Translate(currentMovement);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Projectile" || other.gameObject.tag == "Enemy")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Instantiate(gameOverScreen, transform);
+            restartLevel = true;
         }
         if (other.gameObject.tag == "Exit")
         {
+            Instantiate(winScreen, transform);
+            restartLevel = true;
+        }
+    }
 
+    void checkEndCondition()
+    {
+        if (restartLevel)
+        {
+            endTime = Time.time + 3;
+            restartLevel = false;
+            player.canMove = false;
+        }
+        if (Time.time > endTime)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
