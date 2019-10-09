@@ -1,35 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour
+public class ShootingComponent : MonoBehaviour
 {
-    public GameObject arrowPrefab;
+    GameObject arrowPrefab;
     GameObject lastArrow;
     GameObject currentArrow;
     readonly float fireRate = 0.5f;
-    float xPosition;
-    float yPosition;
     float lastFire = 0;
+    private Skeleton skeleton;
+    private float xPosition;
+    private float yPosition;
+    // Start is called before the first frame update
     void Start()
     {
-        xPosition = transform.position.x;
-        yPosition = transform.position.y;
+        skeleton = GetComponent<Skeleton>();
+        this.xPosition = skeleton.xPosition;
+        this.yPosition = skeleton.yPosition;
     }
 
+    // Update is called once per frame
     void Update()
     {
+        arrowPrefab = skeleton.arrowPrefab;
         ShootArrow();
     }
-
-    void ShootArrow()
+    public void ShootArrow()
     {
         float currentTime = Time.time;
-        float a = Random.Range(0.0f, 1.0f) * 2 * (float) 3.14;
+        float a = Random.Range(0.0f, 1.0f) * 2 * (float)3.14;
         double r = 3 * Mathf.Sqrt(Random.Range(0.0f, 1.0f));
-        float arrowXPosition = xPosition + (float) r * Mathf.Cos(a);
-        float arrowYPoisition = yPosition + (float) r * Mathf.Sin(a);
+        float arrowXPosition = xPosition + (float)r * Mathf.Cos(a);
+        float arrowYPoisition = yPosition + (float)r * Mathf.Sin(a);
         if (lastFire + fireRate < currentTime)
         {
             currentArrow = Instantiate(arrowPrefab,
