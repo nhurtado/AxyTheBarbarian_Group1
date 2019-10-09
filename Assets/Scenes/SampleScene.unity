@@ -125,6 +125,8 @@ GameObject:
   - component: {fileID: 69567675}
   - component: {fileID: 69567677}
   - component: {fileID: 69567676}
+  - component: {fileID: 69567679}
+  - component: {fileID: 69567678}
   m_Layer: 0
   m_Name: Gazer
   m_TagString: Enemy
@@ -206,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5233c7ba35e627f44b171e5acbdb3b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vec: {x: 0, y: 0}
 --- !u!114 &69567676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +237,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
+--- !u!114 &69567678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69567672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e678660d0b88ef34ab955ecaac13032b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &69567679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69567672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5974a3c64aed16846a177b5ab29d3b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &104308373
 GameObject:
   m_ObjectHideFlags: 0
