@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5136242999541412795}
   - component: {fileID: 7663589376431611361}
+  - component: {fileID: 85408253013057733}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,3 +80,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &85408253013057733
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664073228625538739}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.51, y: 2.34}
+    newSize: {x: 1.51, y: 2.34}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.685, y: 0.04}
+      - {x: 0.655, y: 0.07}
+      - {x: 0.625, y: 0.07}
+      - {x: 0.575, y: 0.02}
+      - {x: 0.055, y: -0.89}
+      - {x: 0.044999998, y: -0.93}
+      - {x: 0.044999998, y: 1.1}
+      - {x: 0.015, y: 1.13}
+      - {x: -0.015, y: 1.13}
+      - {x: -0.044999998, y: 1.1}
+      - {x: -0.044999998, y: -0.93}
+      - {x: -0.055, y: -0.89}
+      - {x: -0.575, y: 0.02}
+      - {x: -0.625, y: 0.07}
+      - {x: -0.655, y: 0.07}
+      - {x: -0.685, y: 0.049999997}
+      - {x: -0.685, y: 0.01}
+      - {x: -0.675, y: -0.02}
+      - {x: -0.074999996, y: -1.0699999}
+      - {x: -0.055, y: -1.13}
+      - {x: -0.024999999, y: -1.14}
+      - {x: 0.035, y: -1.14}
+      - {x: 0.555, y: -0.22999999}
+      - {x: 0.685, y: 0}

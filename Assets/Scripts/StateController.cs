@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StateController : MonoBehaviour
 {
@@ -20,5 +21,17 @@ public class StateController : MonoBehaviour
     void UpdateState(Player player)
     {
         player.transform.Translate(currentMovement);
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Projectile" || other.gameObject.tag == "Enemy")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (other.gameObject.tag == "Exit")
+        {
+
+        }
     }
 }
