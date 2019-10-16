@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class Skeleton : MonoBehaviour
 {
-    public GameObject arrowPrefab;
-    public ShootingComponent shootingComp;
     private TimingComponent timingComp;
     public float xPosition;
     public float yPosition;
-    public Skeleton(ShootingComponent shootingComp, TimingComponent timingComp)
-    {
-        this.shootingComp = shootingComp;
-        this.timingComp = timingComp;
-    }
+    
     void Start()
     {
         xPosition = transform.position.x;
         yPosition = transform.position.y;
+        timingComp = GetComponent<TimingComponent>();
+    }
+
+    void FixedUpdate()
+    {
+        timingComp.Timing(xPosition, yPosition);
     }
 
 }
