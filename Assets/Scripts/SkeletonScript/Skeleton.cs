@@ -6,7 +6,7 @@ using UnityEngine;
 public class Skeleton : MonoBehaviour
 {
     public GameObject arrowPrefab;
-    private ShootingComponent shootingComp;
+    public ShootingComponent shootingComp;
     private TimingComponent timingComp;
     public float xPosition;
     public float yPosition;
