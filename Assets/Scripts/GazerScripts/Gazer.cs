@@ -6,11 +6,22 @@ public class Gazer : MonoBehaviour
 {
     private MovementComponent movementComp;
     private UpdateComponent updateComp;
-    public Vector2 vec;
+    Vector2 vec;
 
     public Gazer(MovementComponent movementComp, UpdateComponent updateComp)
     {
-        this.movementComp = movementComp;
-        this.updateComp = updateComp;
+        
+    }
+
+    void Start()
+    {
+        movementComp = GetComponent<MovementComponent>();
+        updateComp = GetComponent<UpdateComponent>();
+    }
+
+    void FixedUpdate()
+    {
+        vec = movementComp.UpdateState();
+        updateComp.UpdateState(vec);
     }
 }

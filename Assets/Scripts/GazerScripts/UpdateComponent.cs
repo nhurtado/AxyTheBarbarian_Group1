@@ -4,23 +4,8 @@ using UnityEngine;
 
 public class UpdateComponent : MonoBehaviour
 {
-    private Gazer gazer;
-    private Vector2 vec;
-    // Start is called before the first frame update
-    void Start()
-    {
-        gazer = GetComponent<Gazer>();
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        vec = gazer.vec;
-        UpdateState(gazer);
-    }
-
-    void UpdateState(Gazer gazer)
+    public void UpdateState(Vector2 vec)
     {   
-        gazer.transform.Translate(vec);
+        transform.Translate(vec);
     }
 }
