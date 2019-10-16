@@ -25,6 +25,5 @@ public class Player : MonoBehaviour
         currentDirection = inputController.GetInput();
         currentMovement = physicsController.ProcessInput(currentDirection);
         stateController.UpdateState(canMove, currentMovement);
-        canMove = stateController.CheckEndCondition(canMove);
     }
 }

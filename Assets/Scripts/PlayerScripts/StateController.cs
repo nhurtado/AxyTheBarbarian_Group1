@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class StateController : MonoBehaviour
 {
-    public GameObject winScreen;
-    public GameObject gameOverScreen;
-    private float endTime = float.MaxValue;
-    private bool restartLevel = false;
-    private float currentTime = 0;
+    public GameObject Observer;
+    ObserverScript observerScript;
+    Player player;
+
+    void Start()
+    {
+        observerScript = Observer.GetComponent<ObserverScript>();
+        player = GetComponent<Player>();
+    }
 
     public void UpdateState(bool canMove, Vector2 currentMovement)
     {
@@ -19,35 +23,17 @@ public class StateController : MonoBehaviour
         }
     }
 
-    public bool CheckEndCondition(bool canMove)
-    {
-        currentTime = Time.time;
-        if (restartLevel && endTime > currentTime)
-        {
-            endTime = Time.time;
-            canMove = false;
-        }
-        else if (endTime + 3 < currentTime)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        return canMove;
-    }
-
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (!restartLevel)
+        if (other.gameObject.tag == "Projectile" || other.gameObject.tag == "Enemy")
         {
-            if (other.gameObject.tag == "Projectile" || other.gameObject.tag == "Enemy")
-            {
-                Instantiate(gameOverScreen, transform);
-                restartLevel = true;
-            }
-            if (other.gameObject.tag == "Exit")
-            {
-                Instantiate(winScreen, transform);
-                restartLevel = true;
-            }
+            observerScript.TriggerGameOverSequence();
+            player.canMove = false;
+        }
+        if (other.gameObject.tag == "Exit")
+        {
+            observerScript.TriggerWinSequence();
+            player.canMove = false;
         }
     }
 }
