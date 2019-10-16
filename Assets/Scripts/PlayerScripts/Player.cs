@@ -5,17 +5,26 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public Vector2 currentMovement;
-    private InputController inputCon;
-    private PhysicsController physicsCon;
-    private StateController stateCon;
+    
     public int currentDirection;
+    public Vector2 currentMovement;
     public bool canMove = true;
+    InputController inputController;
+    PhysicsController physicsController;
+    StateController stateController;
 
-    public Player(InputController inputCon, PhysicsController physicsCon, StateController stateCon)
+    void Start()
     {
-        this.inputCon = inputCon;
-        this.physicsCon = physicsCon;
-        this.stateCon = stateCon;
+        inputController = GetComponent<InputController>();
+        physicsController = GetComponent<PhysicsController>();
+        stateController = GetComponent<StateController>();
+    }
+
+    void Update()
+    {
+        currentDirection = inputController.GetInput();
+        currentMovement = physicsController.ProcessInput(currentDirection);
+        stateController.UpdateState(canMove, currentMovement);
+        canMove = stateController.CheckEndCondition(canMove);
     }
 }

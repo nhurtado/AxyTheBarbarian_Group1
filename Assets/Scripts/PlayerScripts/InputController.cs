@@ -4,23 +4,9 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-    private Player player;
-    private int currentDirection;
-
-    public void Start()
+    public int GetInput()
     {
-        player = GetComponent<Player>();
-    }
-
-    public void Update()
-    {
-        GetInput();
-        player.currentDirection = currentDirection;
-    }
-
-    public void GetInput()
-    {
-        currentDirection = 0;
+        int currentDirection = 0;
         if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow))
         {
             currentDirection = 1;
@@ -37,5 +23,6 @@ public class InputController : MonoBehaviour
         {
             currentDirection = 4;
         }
+        return currentDirection;
     }
 }

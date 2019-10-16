@@ -7,55 +7,47 @@ public class StateController : MonoBehaviour
 {
     public GameObject winScreen;
     public GameObject gameOverScreen;
-    private Player player;
-    float endTime = float.MaxValue;
-    private Vector2 currentMovement;
+    private float endTime = float.MaxValue;
     private bool restartLevel = false;
-    void Start()
+    private float currentTime = 0;
+
+    public void UpdateState(bool canMove, Vector2 currentMovement)
     {
-        player = GetComponent<Player>();
-    }
-    
-    void FixedUpdate()
-    {
-        currentMovement = player.currentMovement;
-        UpdateState(player);
-        checkEndCondition();
+        if (canMove)
+        {
+            transform.Translate(currentMovement);
+        }
     }
 
-    void UpdateState(Player player)
+    public bool CheckEndCondition(bool canMove)
     {
-        if (player.canMove)
+        currentTime = Time.time;
+        if (restartLevel && endTime > currentTime)
         {
-            player.transform.Translate(currentMovement);
+            endTime = Time.time;
+            canMove = false;
         }
+        else if (endTime + 3 < currentTime)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        return canMove;
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Projectile" || other.gameObject.tag == "Enemy")
+        if (!restartLevel)
         {
-            Instantiate(gameOverScreen, transform);
-            restartLevel = true;
-        }
-        if (other.gameObject.tag == "Exit")
-        {
-            Instantiate(winScreen, transform);
-            restartLevel = true;
-        }
-    }
-
-    void checkEndCondition()
-    {
-        if (restartLevel)
-        {
-            endTime = Time.time + 3;
-            restartLevel = false;
-            player.canMove = false;
-        }
-        if (Time.time > endTime)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (other.gameObject.tag == "Projectile" || other.gameObject.tag == "Enemy")
+            {
+                Instantiate(gameOverScreen, transform);
+                restartLevel = true;
+            }
+            if (other.gameObject.tag == "Exit")
+            {
+                Instantiate(winScreen, transform);
+                restartLevel = true;
+            }
         }
     }
 }
