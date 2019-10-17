@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class MovementComponent : MonoBehaviour
 {
-    readonly float speed = 5f;
+    public float speed = 5f;
     bool goingDown = true; //0 = Down, 1 = Up
 
-    public Vector2 UpdateState()
+    public Vector2 UpdateState(float yPosition)
     {
         Vector2 vec = new Vector2(0, 0);
         if (goingDown)
         {
-            if (transform.position.y > -3)
+            if (transform.position.y > -3 + yPosition)
             {
                 vec.y -= speed * Time.deltaTime;
             }
@@ -23,7 +23,7 @@ public class MovementComponent : MonoBehaviour
         }
         else
         {
-            if (transform.position.y < 3)
+            if (transform.position.y < 3 + yPosition)
             {
                 vec.y += speed * Time.deltaTime;
             }

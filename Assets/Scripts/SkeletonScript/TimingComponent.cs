@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimingComponent : MonoBehaviour
 {
-    readonly float fireRate = 0.5f;
+    public float fireRate = 0.5f;
     float lastFire = 0;
     ShootingComponent shootingComp;
 
