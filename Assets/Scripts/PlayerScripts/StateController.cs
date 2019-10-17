@@ -11,6 +11,7 @@ public class StateController : MonoBehaviour
 
     void Start()
     {
+        Observer = GameObject.Find("Observer");
         observerScript = Observer.GetComponent<ObserverScript>();
         player = GetComponent<Player>();
     }
