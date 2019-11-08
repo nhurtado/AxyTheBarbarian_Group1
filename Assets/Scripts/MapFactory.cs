@@ -11,12 +11,15 @@ public class MapFactory : MonoBehaviour
     public GameObject skeletonPrefab;
     public GameObject ratPrefab;
     public GameObject gazerPrefab;
+    public GameObject zombiePrefab;
     public GameObject doorPrefab;
+    public GameObject aStar;
     const string wall = "w";
     const string player = "p";
     const string gazer = "g";
     const string skeleton = "s";
     const string rat = "r";
+    const string zombie = "z";
     const string door = "d";
     // Start is called before the first frame update
     void Start()
@@ -59,10 +62,14 @@ public class MapFactory : MonoBehaviour
                 case rat:
                     Instantiate(ratPrefab, position, transform.rotation);
                     break;
+                case zombie:
+                    Instantiate(zombiePrefab, position, transform.rotation);
+                    break;
                 case door:
                     Instantiate(doorPrefab, position, transform.rotation);
                     break;
             }
         }
+        Instantiate(aStar, new Vector2(20, 10), transform.rotation);
     }
 }
