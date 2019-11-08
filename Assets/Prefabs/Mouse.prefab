@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -9130800440666856706}
   m_Layer: 0
   m_Name: Mouse
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.3
   m_AngularDrag: 0.9
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915ff64111928a742af92d97cbea98fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escaping: 0
+  velocityPrime: {x: 0, y: 0}
 --- !u!58 &7109149209053652518
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -149,4 +151,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5

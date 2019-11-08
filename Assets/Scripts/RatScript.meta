@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/RatScript.meta
 guid: fe85f4ceab26044488cbdef8df76fd32
+=======
+guid: 273c406c4985fb94a91aed720b937c9d
+>>>>>>> ff2bc07b01b6f89eb86100ac94a685a32a33a467:Assets/AstarPathfindingProject.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

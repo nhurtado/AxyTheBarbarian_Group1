@@ -8,7 +8,8 @@ public class RatManager : MonoBehaviour
     private Rigidbody2D myRigidBody;
     private float movementCounter;
     private float movementCounterMax;
-    private bool escaping;
+    public bool escaping;
+    public Vector2 velocityPrime;
     private Collider2D player;
 
     // Start is called before the first frame update
@@ -23,12 +24,11 @@ public class RatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if (escaping)
         {
-            Vector2 velocityPrime = new Vector2(player.transform.position.x - myRigidBody.gameObject.transform.position.x, player.transform.position.y - myRigidBody.gameObject.transform.position.x); ;
-            myRigidBody.velocity = velocityPrime.normalized;
+            velocityPrime = new Vector2(myRigidBody.gameObject.transform.position.x - player.transform.position.x, player.transform.position.y - myRigidBody.gameObject.transform.position.y); ;
+   
+            myRigidBody.velocity = new Vector2(velocityPrime.normalized.x * 10, -velocityPrime.normalized.y * 10);
         }
         else
         {
