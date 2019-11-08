@@ -9,17 +9,18 @@ public class MapFactory : MonoBehaviour
     public GameObject wallPrefab;
     public GameObject playerPrefab;
     public GameObject skeletonPrefab;
+    public GameObject ratPrefab;
     public GameObject gazerPrefab;
     public GameObject doorPrefab;
     const string wall = "w";
     const string player = "p";
     const string gazer = "g";
     const string skeleton = "s";
+    const string rat = "r";
     const string door = "d";
     // Start is called before the first frame update
     void Start()
     {
-
         GenerateMap();
     }
   
@@ -44,7 +45,7 @@ public class MapFactory : MonoBehaviour
                     Instantiate(wallPrefab, position, transform.rotation);
                     break;
                 case player:
-                    if (GameObject.Find("Player(Clone)") == null)
+                    if (GameObject.FindGameObjectWithTag("Player") == null)
                     {
                         Instantiate(playerPrefab, position, transform.rotation);
                     }                    
@@ -55,12 +56,13 @@ public class MapFactory : MonoBehaviour
                 case gazer:
                     Instantiate(gazerPrefab, position, transform.rotation);
                     break;
+                case rat:
+                    Instantiate(ratPrefab, position, transform.rotation);
+                    break;
                 case door:
                     Instantiate(doorPrefab, position, transform.rotation);
                     break;
-
             }
-
         }
     }
 }
