@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,52 +12,104 @@ public class RatManager : MonoBehaviour
     public bool escaping;
     public Vector2 velocityPrime;
     private Collider2D player;
-
-    // Start is called before the first frame update
+    private Vector2 collisionPoint;
+    private float speed;
+    private float initialSpeed = 5f;
+    GameObject ray;
+    RaycastHit2D hit;
+    
     void Start()
     {
         movementCounterMax = 2;
         myRigidBody = GetComponent<Rigidbody2D>();
         movementCounter = movementCounterMax;
-        //changeVelocity();
+        speed = initialSpeed;
+        ray = transform.GetChild(0).gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         if (escaping)
         {
-            velocityPrime = new Vector2(myRigidBody.gameObject.transform.position.x - player.transform.position.x, player.transform.position.y - myRigidBody.gameObject.transform.position.y); ;
-   
-            myRigidBody.velocity = new Vector2(velocityPrime.normalized.x * 10, -velocityPrime.normalized.y * 10);
+            Escape();
         }
         else
         {
-            if (movementCounter > 0)
-            {
-                movementCounter -= Time.deltaTime;
-            }
-
-            if (movementCounter <= 0)
-            {
-                changeVelocity();
-                movementCounter = movementCounterMax;
-            }
+            Wander();
         }
     }
 
-    public void changeVelocity()
+    public void CheckForward()
     {
-        float moveX = Random.Range(-1f, 1f);
-        float moveY = Random.Range(-1f, 1f);
-        myRigidBody.velocity = new Vector2(moveX * 3, moveY * 3);
+        Vector3 direction = ray.transform.position - transform.position;
+        hit = Physics2D.Raycast(ray.transform.position, direction, 1, LayerMask.GetMask("Wall"));
+        if (hit)
+        {
+            var angle = Vector2.Angle(-ray.transform.position, hit.normal);
+            Vector2 rotatedVector = Quaternion.Euler(0, 0, angle) * myRigidBody.velocity;
+            Vector2 target = rotatedVector - (Vector2)transform.position;
+            MoveTowards(-target);
+            myRigidBody.velocity = target;
+
+            //Debug.DrawLine(ray.transform.position, hit.point, Color.red);
+            //Debug.DrawLine(hit.point, rotatedVector, Color.blue);
+            //Debug.DrawLine(hit.point, hit.normal,Color.green);
+        }
+    }
+
+    public void Escape()
+    {
+        CheckForward();
+        myRigidBody.velocity = new Vector2(0,0);
+        MoveTowards(player.transform.position - transform.position);
+        myRigidBody.transform.Translate(Vector2.down * Time.deltaTime * speed);
+        speed += Time.deltaTime;
+    }
+
+    public void Wander()
+    {
+        CheckForward();
+        if (speed > initialSpeed)
+        {
+            speed = initialSpeed;
+        }
+        if (movementCounter > 0)
+        {
+            movementCounter -= Time.deltaTime * 3f;
+        }
+        if (movementCounter <= 0)
+        {
+            ChangeVelocity();
+            movementCounter = movementCounterMax;
+        }
+    }
+
+    public void ChangeVelocity()
+    {
+        float moveX = UnityEngine.Random.Range(-1f, 1f);
+        float moveY = UnityEngine.Random.Range(-1f, 1f);
+        Vector2 moveVector = new Vector2(moveX * 10, moveY * 10);
+        MoveTowards(- moveVector);
+        myRigidBody.velocity = moveVector;
+    }
+
+
+    public void MoveTowards(Vector2 targetVector)
+    {
+        Vector3 diff = targetVector;
+        diff.Normalize();
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
     }
 
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            player = other;
+            if (player == null)
+            {
+                player = other;
+            }
             escaping = true;
         }
     }
@@ -66,7 +119,7 @@ public class RatManager : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             escaping = false;
-            player = null;
         }
     }
 }
+
