@@ -280,6 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1751824070}
   - component: {fileID: 1751824071}
+  - component: {fileID: 1751824072}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -328,6 +329,20 @@ MonoBehaviour:
   doorPrefab: {fileID: 3820332956359300839, guid: 87e58d929fd89d04d89e352524334dae,
     type: 3}
   aStar: {fileID: 4493960339479676303, guid: ac663c3c7fab2c347826b355657115de, type: 3}
+--- !u!114 &1751824072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751824069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd9765a7c4dfd8c45a71565033c3ac86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  day: 1
+  period: 5
 --- !u!1001 &4219863553935928710
 PrefabInstance:
   m_ObjectHideFlags: 0
