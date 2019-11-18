@@ -17,6 +17,8 @@ public class RatManager : MonoBehaviour
     private float initialSpeed = 5f;
     GameObject ray;
     RaycastHit2D hit;
+    DayNightCycle dayNightCycle;
+    Node decisionTree;
 
     public Dictionary<string, bool> worldState = new Dictionary<string, bool>();
 
@@ -31,20 +33,46 @@ public class RatManager : MonoBehaviour
         worldState.Add("Day", false);
         worldState.Add("CloserThan6", false);
         worldState.Add("CloserThan5", false);
+
+        GameObject observer = GameObject.Find("Observer");
+        dayNightCycle = observer.GetComponent<DayNightCycle>();
+
+        ActionNode wanderNode = new ActionNode();
+        wanderNode.actionMethod = Wander;
+
+        ActionNode attackNode = new ActionNode();
+        attackNode.actionMethod = Wander;
+
+        ActionNode escapeNode = new ActionNode();
+        escapeNode.actionMethod = Escape;
+
+        BinaryNode attackDecisionNode = new BinaryNode();
+        attackDecisionNode.yesNode = attackNode;
+        attackDecisionNode.noNode = wanderNode;
+        attackDecisionNode.decision = "CloserThan6";
+
+        BinaryNode escapeDecisionNode = new BinaryNode();
+        escapeDecisionNode.yesNode = escapeNode;
+        escapeDecisionNode.noNode = wanderNode;
+        escapeDecisionNode.decision = "CloserThan5";
+
+        BinaryNode dayNightNode = new BinaryNode();
+        dayNightNode.yesNode = attackDecisionNode;
+        dayNightNode.noNode = escapeDecisionNode;
+        dayNightNode.decision = "Day";
+
+        decisionTree = dayNightNode;
     }
 
     private void FixedUpdate()
     {
-        List<string> keyList = new List<string>(worldState.Keys);
-        for (int i = 0; i < keyList.Count; i++)
-        {
-            Debug.Log(keyList[i] + worldState[keyList[i]]);
-        }
+        CheckWorld();
+        decisionTree.Decide(worldState);
     }
 
     public void CheckWorld()
     {
-
+        worldState["Day"] = dayNightCycle.day;
     }
 
     public void CheckForward()

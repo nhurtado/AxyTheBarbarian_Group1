@@ -5,24 +5,23 @@ using UnityEngine;
 
 public class Node
 {
-    public virtual void Decide() { }
+    public virtual void Decide(Dictionary<string, bool> worldState) { }
 }
 
 class BinaryNode : Node
 {
     public Node yesNode;
     public Node noNode;
-    public string Decision;
-    bool t = true;
-    public override void Decide()
+    public string decision;
+    public override void Decide(Dictionary<string, bool> worldState)
     {
-        if (t)
+        if (worldState[decision])
         {
-            yesNode.Decide();
+            yesNode.Decide(worldState);
         }
         else
         {
-            noNode.Decide();
+            noNode.Decide(worldState);
         }
     }
 }
@@ -30,7 +29,7 @@ class BinaryNode : Node
 class ActionNode : Node
 {
     public Action actionMethod;
-    public override void Decide()
+    public override void Decide(Dictionary<string, bool> worldState)
     {
         actionMethod();
     }
