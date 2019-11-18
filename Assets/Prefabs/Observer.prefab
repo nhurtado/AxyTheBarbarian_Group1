@@ -41,13 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4219863553108720824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3beb59dcf17b944198897a81e4f3c78, type: 3}
+  m_Script: {fileID: 11500000, guid: d19527500ea5073499250bad4bf60b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winScreen: {fileID: 4592452193900360969, guid: febdb5f53addad043a4e8cceb57f98c7,
-    type: 3}
-  gameOverScreen: {fileID: 1696695137406154436, guid: a25c06e4890e70644ae097ca31b71fb4,
-    type: 3}
+  day: 1
+  period: 15
 --- !u!114 &7795917883973261880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,8 +55,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4219863553108720824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd9765a7c4dfd8c45a71565033c3ac86, type: 3}
+  m_Script: {fileID: 11500000, guid: 31fc69a9107c9d1458991840bbdaafdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  day: 1
-  period: 15
+  winScreen: {fileID: 4592452193900360969, guid: febdb5f53addad043a4e8cceb57f98c7,
+    type: 3}
+  gameOverScreen: {fileID: 1696695137406154436, guid: a25c06e4890e70644ae097ca31b71fb4,
+    type: 3}

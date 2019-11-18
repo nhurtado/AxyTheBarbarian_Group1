@@ -273,6 +273,7 @@ MonoBehaviour:
   escaping: 0
   velocityPrime: {x: 0, y: 0}
   player: {fileID: 0}
+  initialSpeed: 3
 --- !u!58 &7109149209053652518
 CircleCollider2D:
   m_ObjectHideFlags: 0

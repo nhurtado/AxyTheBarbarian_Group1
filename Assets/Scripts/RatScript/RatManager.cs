@@ -14,7 +14,7 @@ public class RatManager : MonoBehaviour
     public Collider2D player;
     private Vector2 collisionPoint;
     private float speed;
-    private float initialSpeed = 5f;
+    public float initialSpeed = 5f;
     GameObject ray;
     RaycastHit2D hit;
     DayNightCycle dayNightCycle;
@@ -41,7 +41,7 @@ public class RatManager : MonoBehaviour
         wanderNode.actionMethod = Wander;
 
         ActionNode attackNode = new ActionNode();
-        attackNode.actionMethod = Wander;
+        attackNode.actionMethod = Attack;
 
         ActionNode escapeNode = new ActionNode();
         escapeNode.actionMethod = Escape;
@@ -102,6 +102,15 @@ public class RatManager : MonoBehaviour
         speed += Time.deltaTime;
     }
 
+    public void Attack()
+    {
+        CheckForward();
+        myRigidBody.velocity = new Vector2(0, 0);
+        MoveTowards(-(player.transform.position - transform.position));
+        myRigidBody.transform.Translate(Vector2.down * Time.deltaTime * speed);
+        speed += Time.deltaTime;
+        Debug.Log("AAA");
+    }
     public void Wander()
     {
         CheckForward();
@@ -111,7 +120,7 @@ public class RatManager : MonoBehaviour
         }
         if (movementCounter > 0)
         {
-            movementCounter -= Time.deltaTime * 3f;
+            movementCounter -= Time.deltaTime * 1.5f;
         }
         if (movementCounter <= 0)
         {
@@ -124,7 +133,7 @@ public class RatManager : MonoBehaviour
     {
         float moveX = UnityEngine.Random.Range(-1f, 1f);
         float moveY = UnityEngine.Random.Range(-1f, 1f);
-        Vector2 moveVector = new Vector2(moveX * 10, moveY * 10);
+        Vector2 moveVector = new Vector2(moveX * 3, moveY * 3);
         MoveTowards(- moveVector);
         myRigidBody.velocity = moveVector;
     }
