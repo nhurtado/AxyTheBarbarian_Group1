@@ -11,13 +11,15 @@ public class RatManager : MonoBehaviour
     private float movementCounterMax;
     public bool escaping;
     public Vector2 velocityPrime;
-    private Collider2D player;
+    public Collider2D player;
     private Vector2 collisionPoint;
     private float speed;
     private float initialSpeed = 5f;
     GameObject ray;
     RaycastHit2D hit;
-    
+
+    public Dictionary<string, bool> worldState = new Dictionary<string, bool>();
+
     void Start()
     {
         movementCounterMax = 2;
@@ -25,18 +27,24 @@ public class RatManager : MonoBehaviour
         movementCounter = movementCounterMax;
         speed = initialSpeed;
         ray = transform.GetChild(0).gameObject;
+
+        worldState.Add("Day", false);
+        worldState.Add("CloserThan6", false);
+        worldState.Add("CloserThan5", false);
     }
 
     private void FixedUpdate()
     {
-        if (escaping)
+        List<string> keyList = new List<string>(worldState.Keys);
+        for (int i = 0; i < keyList.Count; i++)
         {
-            Escape();
+            Debug.Log(keyList[i] + worldState[keyList[i]]);
         }
-        else
-        {
-            Wander();
-        }
+    }
+
+    public void CheckWorld()
+    {
+
     }
 
     public void CheckForward()
@@ -100,26 +108,6 @@ public class RatManager : MonoBehaviour
         diff.Normalize();
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-    }
-
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            if (player == null)
-            {
-                player = other;
-            }
-            escaping = true;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            escaping = false;
-        }
     }
 }
 
