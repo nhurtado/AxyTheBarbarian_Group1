@@ -9,12 +9,9 @@ public class RatManager : MonoBehaviour
     private Rigidbody2D myRigidBody;
     private float movementCounter;
     private float movementCounterMax;
-    public bool escaping;
-    public Vector2 velocityPrime;
     public Collider2D player;
-    private Vector2 collisionPoint;
     private float speed;
-    public float initialSpeed = 5f;
+    public float initialSpeed = 3.5f;
     GameObject ray;
     RaycastHit2D hit;
     DayNightCycle dayNightCycle;
@@ -78,38 +75,37 @@ public class RatManager : MonoBehaviour
     public void CheckForward()
     {
         Vector3 direction = ray.transform.position - transform.position;
-        hit = Physics2D.Raycast(ray.transform.position, direction, 1, LayerMask.GetMask("Wall"));
+        Debug.DrawRay(ray.transform.position,  direction);
+        hit = Physics2D.Raycast(ray.transform.position, direction, 0.6f, LayerMask.GetMask("Wall", "Enemy"));
         if (hit)
         {
-            var angle = Vector2.Angle(-ray.transform.position, hit.normal);
-            Vector2 rotatedVector = Quaternion.Euler(0, 0, angle) * myRigidBody.velocity;
-            Vector2 target = rotatedVector - (Vector2)transform.position;
-            MoveTowards(-target);
-            myRigidBody.velocity = target;
-
-            //Debug.DrawLine(ray.transform.position, hit.point, Color.red);
-            //Debug.DrawLine(hit.point, rotatedVector, Color.blue);
-            //Debug.DrawLine(hit.point, hit.normal,Color.green);
+            Debug.DrawRay(ray.transform.position, hit.point -(Vector2)ray.transform.position, Color.red);
+            Vector2 reflecVec = Vector2.Reflect(hit.point - (Vector2)ray.transform.position, hit.normal);
+            float originalMagnitude = myRigidBody.velocity.magnitude;
+            if (originalMagnitude < 0.3)
+            {
+                originalMagnitude = 0.4f;
+            }
+            Debug.DrawRay(hit.point, reflecVec, Color.blue);
+            myRigidBody.velocity = reflecVec.normalized * originalMagnitude;
+            MoveTowards(-reflecVec);
         }
     }
 
     public void Escape()
     {
         CheckForward();
-        myRigidBody.velocity = new Vector2(0,0);
         MoveTowards(player.transform.position - transform.position);
-        myRigidBody.transform.Translate(Vector2.down * Time.deltaTime * speed);
+        myRigidBody.velocity = (transform.position - player.transform.position)*speed;
         speed += Time.deltaTime;
     }
 
     public void Attack()
     {
         CheckForward();
-        myRigidBody.velocity = new Vector2(0, 0);
         MoveTowards(-(player.transform.position - transform.position));
-        myRigidBody.transform.Translate(Vector2.down * Time.deltaTime * speed);
+        myRigidBody.velocity = (player.transform.position - transform.position) * speed/5;
         speed += Time.deltaTime;
-        Debug.Log("AAA");
     }
     public void Wander()
     {
@@ -120,7 +116,7 @@ public class RatManager : MonoBehaviour
         }
         if (movementCounter > 0)
         {
-            movementCounter -= Time.deltaTime * 1.5f;
+            movementCounter -= Time.deltaTime * 2f;
         }
         if (movementCounter <= 0)
         {
@@ -133,7 +129,7 @@ public class RatManager : MonoBehaviour
     {
         float moveX = UnityEngine.Random.Range(-1f, 1f);
         float moveY = UnityEngine.Random.Range(-1f, 1f);
-        Vector2 moveVector = new Vector2(moveX * 3, moveY * 3);
+        Vector2 moveVector = new Vector2(moveX * 4, moveY * 4);
         MoveTowards(- moveVector);
         myRigidBody.velocity = moveVector;
     }

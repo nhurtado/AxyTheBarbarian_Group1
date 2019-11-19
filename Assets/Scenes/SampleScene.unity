@@ -409,7 +409,7 @@ PrefabInstance:
     - target: {fileID: 4219863553108720825, guid: b75a9027994b493478d9039fa98146ff,
         type: 3}
       propertyPath: period
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b75a9027994b493478d9039fa98146ff, type: 3}

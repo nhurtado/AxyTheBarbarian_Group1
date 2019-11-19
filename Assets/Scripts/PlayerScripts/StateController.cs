@@ -29,6 +29,7 @@ public class StateController : MonoBehaviour
         if (other.gameObject.tag == "Projectile" || other.gameObject.tag == "Enemy")
         {
             observerScript.TriggerGameOverSequence();
+            player.GetComponent<Rigidbody2D>().isKinematic = true;
             player.canMove = false;
         }
         if (other.gameObject.tag == "Exit")
